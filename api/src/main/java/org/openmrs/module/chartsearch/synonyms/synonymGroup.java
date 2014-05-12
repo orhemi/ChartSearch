@@ -14,10 +14,10 @@ public class SynonymGroup {
 
     public SynonymGroup(String groupName, boolean isCategory, String synonymList) {
         synonymGroup = new HashSet<String>();
-        if (SynonymGroups.getSynonymGroupByName(groupName).equals(null)) {
+        if (SynonymGroups.getInstance().getSynonymGroupByName(groupName) != null) {
             this.groupName = groupName;
         } else {
-            this.groupName = "defaultName" + SynonymGroups.getCounter();
+            this.groupName = "defaultName" + SynonymGroups.getInstance().getCounter();
         }
         this.isCategory = isCategory;
 
@@ -26,10 +26,10 @@ public class SynonymGroup {
 
     public SynonymGroup(String groupName, boolean isCategory, List<String> synonymList) {
         synonymGroup = new HashSet<String>();
-        if (SynonymGroups.getSynonymGroupByName(groupName).equals(null)) {
+        if (SynonymGroups.getInstance().getSynonymGroupByName(groupName) != null) {
             this.groupName = groupName;
         } else {
-            this.groupName = "defaultName" + SynonymGroups.getCounter();
+            this.groupName = "defaultName" + SynonymGroups.getInstance().getCounter();
         }
         this.isCategory = isCategory;
 
@@ -37,7 +37,7 @@ public class SynonymGroup {
     }
 
     public boolean setGroupName(String groupName) {
-        if (SynonymGroups.getSynonymGroupByName(groupName).equals(null)) {
+        if (SynonymGroups.getInstance().getSynonymGroupByName(groupName) != null) {
             this.groupName = groupName;
             return true;
         } else {
@@ -68,7 +68,7 @@ public class SynonymGroup {
 
     public String addSynonym(String newSynonym) {
         if (!newSynonym.equals("")) {
-            if (SynonymGroups.isSynonymContainedInGroup(newSynonym).equals(null)) {
+            if (SynonymGroups.getInstance().isSynonymContainedInGroup(newSynonym) != null) {
                 synonymGroup.add(newSynonym);
                 return "true";
             }
@@ -79,7 +79,7 @@ public class SynonymGroup {
 
     public boolean editSynonym(String oldSynonym, String newSynonym) {
         if (synonymGroup.contains(oldSynonym) && !synonymGroup.contains(newSynonym)) {
-            if (SynonymGroups.isSynonymContainedInGroup(newSynonym).equals(null)) {
+            if (SynonymGroups.getInstance().isSynonymContainedInGroup(newSynonym) != null) {
                 synonymGroup.remove(oldSynonym);
                 addSynonym(newSynonym);
                 return true;
