@@ -4,9 +4,6 @@ package org.openmrs.module.chartsearch.fragment.controller;
 
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openmrs.api.context.Context;
 import org.openmrs.module.chartsearch.ChartListItem;
 import org.openmrs.module.chartsearch.ObsItem;
@@ -15,7 +12,6 @@ import org.openmrs.module.chartsearch.SearchPhrase;
 import org.openmrs.module.chartsearch.solr.ChartSearchSearcher;
 import org.openmrs.module.chartsearch.synonyms.SynonymGroup;
 import org.openmrs.module.chartsearch.synonyms.SynonymGroups;
-import org.openmrs.module.chartsearch.web.dwr.DWRChartSearchService;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,7 +36,7 @@ public class SearchBoxFragmentController {
         SearchAPI searchAPI =SearchAPI.getInstance();
         model.addAttribute("patientID_from_get", patient);
 
-        Integer length = Integer.valueOf(10);
+        Integer length = Integer.valueOf(999999999);
         Integer start = Integer.valueOf(0);
 
         List<ChartListItem> items = new ArrayList<ChartListItem>();
