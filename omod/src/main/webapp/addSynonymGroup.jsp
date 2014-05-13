@@ -49,6 +49,7 @@
         <br>
         <input type="submit" value="Submit">
         <input type="reset" value="Clear">
+        <input type="button" value='<spring:message code="general.cancel"/>' onclick="javascript:window.location='<openmrs:contextPath />/admin'" />
     </form>
 
 </div>

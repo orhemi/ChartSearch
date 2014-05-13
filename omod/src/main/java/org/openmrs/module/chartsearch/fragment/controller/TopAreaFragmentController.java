@@ -41,7 +41,7 @@ public class TopAreaFragmentController {
      */
 
     public String post(PageModel model, @BindParams SearchPhrase search_phrase, @RequestParam("patientId") Integer patient) {
-        System.out.println("phrase : " + search_phrase.getPhrase());
+
         if(search_phrase.getPhrase() == "," ){
             search_phrase.setPhrase("");
         }
@@ -56,11 +56,17 @@ public class TopAreaFragmentController {
         SynonymGroups instance = SynonymGroups.getInstance();
 
         SynonymGroup synGroup = instance.isSynonymContainedInGroup(synonyms);
+
+
+
         if (synGroup != null) {
             for (String syn : (HashSet<String>) synGroup.getSynonyms()) {
                 synonyms += " || " + syn;
             }
+            System.out.println("Is contained in a group : " + synGroup.getGroupName());
         }
+        System.out.println("phrase : " + synonyms);
+
 
         try {
             items = searcher.getDocumentList(patient, synonyms, start, length); //searching for the phrase.

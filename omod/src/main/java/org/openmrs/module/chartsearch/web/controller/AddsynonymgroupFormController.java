@@ -42,9 +42,10 @@ public class AddsynonymgroupFormController {
             category=true;
         }
         SynonymGroup synGrp = new SynonymGroup(groupName, category, synonymList);
+
         SynonymGroups.getInstance().addSynonymGroup(synGrp);
 
-        return "redirect:admin/index.htm";
+        return "redirect:addsynonymgroup.form";
     }
 
 

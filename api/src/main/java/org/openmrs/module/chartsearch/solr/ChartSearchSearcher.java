@@ -76,7 +76,7 @@ public class ChartSearchSearcher {
 		query.setParam("hl.fl", "text");
 
 
-        System.out.println("Observations:");
+        //System.out.println("Observations:");
 		QueryResponse response = solrServer.query(query);
 
 		Iterator<SolrDocument> iter = response.getResults().iterator();
@@ -112,12 +112,12 @@ public class ChartSearchSearcher {
 				}
 			}
 			list.add(item);
-            System.out.println(document.get("obs_id") + ", " + document.get("concept_name") + ", " + document.get("obs_datetime"));
+            //System.out.println(document.get("obs_id") + ", " + document.get("concept_name") + ", " + document.get("obs_datetime"));
 		}
 
 		
 		// Encounters
-		System.out.println("Encounters:");
+		//System.out.println("Encounters:");
 		SolrQuery query3 = new SolrQuery(String.format("encounter_type:%s", searchText));
 		query3.addFilterQuery(String.format("patient_id:%d", patientId));
 		QueryResponse response3 = solrServer.query(query3);
@@ -131,11 +131,11 @@ public class ChartSearchSearcher {
 			item.setEncounterType((String) document.get("encounter_type"));
 			list.add(item);
 			
-			System.out.println(document.get("encounter_id") + ", " + document.get("encounter_type") + ", " + document.get("encounter_datetime"));
+			//System.out.println(document.get("encounter_id") + ", " + document.get("encounter_type") + ", " + document.get("encounter_datetime"));
 		}
 		
 		// forms
-		System.out.println("Forms:");
+		//System.out.println("Forms:");
 		SolrQuery query2 = new SolrQuery(String.format("form_name:%s", searchText));
 		QueryResponse response2 = solrServer.query(query2);
 		Iterator<SolrDocument> iter2 = response2.getResults().iterator();
@@ -149,7 +149,7 @@ public class ChartSearchSearcher {
 			item.setFormName((String) document.get("form_name"));
 			list.add(item);
 			
-			System.out.println(document.get("form_id") + ", " + document.get("form_name") + ", " + document.get("encounter_type_name"));
+			//System.out.println(document.get("form_id") + ", " + document.get("form_name") + ", " + document.get("encounter_type_name"));
 		}
 		
 		return list;

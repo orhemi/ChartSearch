@@ -7,6 +7,8 @@ import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
 import org.openmrs.util.Format;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -73,8 +75,12 @@ public class GeneratingJson {
         jsonObs.put("observation_id", obs.getObsId());
         jsonObs.put("concept_name", obs.getConcept().getDisplayString());
 
-        String obsDate = obs.getObsDatetime() == null ? "" : Format.format(obs.getObsDatetime());
-        jsonObs.put("date", obsDate);
+        Date obsDate = obs.getObsDatetime() == null ? new Date() : obs.getObsDatetime();
+
+        SimpleDateFormat formatDateJava = new SimpleDateFormat("dd/MM/yyyy");
+        String obsDateStr = formatDateJava.format(obsDate);
+
+        jsonObs.put("date", obsDateStr);
 
         if (obs.getConcept().getDatatype().isNumeric()) { // ADD MORE DATATYPES
             jsonObs.put("value_type", obs.getConcept().getDatatype().getName());
