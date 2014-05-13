@@ -134,12 +134,34 @@ function enable_graph(obs_id) {
 
         var d3 = get_obs_graph_points(obs_id);
         var options = {
+            series: {
+                lines: {
+                    show: true
+                },
+                points: {
+                    show: true
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true
+            },
             xaxis: {
                 mode: "time",
                 tickLength: 5
             }
         };
-        $.plot("#placeholder", [  d3 ], options);
+        $.plot("#placeholder", [ d3 ], options);
+    $("<div id='tooltip'></div>").css({
+        position: "absolute",
+        display: "none",
+        border: "1px solid #fdd",
+        padding: "2px",
+        "background-color": "#fee",
+        opacity: 0.80
+    }).appendTo("body");
+
+
 
 
 }
