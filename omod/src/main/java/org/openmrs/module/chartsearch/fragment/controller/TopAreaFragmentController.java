@@ -10,7 +10,6 @@ import org.openmrs.module.chartsearch.ObsItem;
 import org.openmrs.module.chartsearch.SearchAPI;
 import org.openmrs.module.chartsearch.SearchPhrase;
 import org.openmrs.module.chartsearch.solr.ChartSearchSearcher;
-import org.openmrs.module.chartsearch.synonyms.SynonymGroup;
 import org.openmrs.module.chartsearch.synonyms.SynonymGroups;
 import org.openmrs.module.chartsearch.web.dwr.DWRChartSearchService;
 import org.openmrs.ui.framework.annotation.BindParams;
@@ -20,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class TopAreaFragmentController {
@@ -52,24 +50,14 @@ public class TopAreaFragmentController {
         Integer start = Integer.valueOf(0);//starting from first obs.
         List<ChartListItem> items = new ArrayList<ChartListItem>();
 
-        String synonyms = search_phrase.getPhrase();
-        SynonymGroups instance = SynonymGroups.getInstance();
-
-        SynonymGroup synGroup = instance.isSynonymContainedInGroup(synonyms);
+        String searchPhrase = search_phrase.getPhrase();
+        SynonymGroups synonymGroups = SynonymGroups.getInstance();
 
 
-
-        if (synGroup != null) {
-            for (String syn : (HashSet<String>) synGroup.getSynonyms()) {
-                synonyms += " || " + syn;
-            }
-            System.out.println("Is contained in a group : " + synGroup.getGroupName());
-        }
-        System.out.println("phrase : " + synonyms);
 
 
         try {
-            items = searcher.getDocumentList(patient, synonyms, start, length); //searching for the phrase.
+            items = searcher.getDocumentList(patient, searchPhrase, start, length); //searching for the phrase.
         } catch (Exception e) {
             e.printStackTrace();
         }

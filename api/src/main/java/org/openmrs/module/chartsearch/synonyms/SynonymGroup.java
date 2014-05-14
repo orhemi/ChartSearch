@@ -12,21 +12,11 @@ public class SynonymGroup {
     private String groupName;
     private boolean isCategory;
 
-    public SynonymGroup(String groupName, boolean isCategory, String synonymList) {
-        synonymSet = new HashSet<String>();
-        if (SynonymGroups.getInstance().getSynonymGroupByName(groupName) == null && !groupName.equals("")) {
-            this.groupName = groupName;
-        } else {
-            this.groupName = "defaultName" + SynonymGroups.getInstance().getCounter();
-        }
-        this.isCategory = isCategory;
 
-        addSynonyms(synonymList);
-    }
 
     public SynonymGroup(String groupName, boolean isCategory, List<String> synonymList) {
         synonymSet = new HashSet<String>();
-        if (SynonymGroups.getInstance().getSynonymGroupByName(groupName) == null && !groupName.equals("")) {
+        if (!groupName.equals("")) {
             this.groupName = groupName;
         } else {
             this.groupName = "defaultName" + SynonymGroups.getInstance().getCounter();
@@ -37,7 +27,7 @@ public class SynonymGroup {
     }
 
     public boolean setGroupName(String groupName) {
-        if (SynonymGroups.getInstance().getSynonymGroupByName(groupName) != null) {
+        if (SynonymGroups.getInstance().getSynonymGroupByName(groupName) == null) {
             this.groupName = groupName;
             return true;
         } else {
@@ -49,12 +39,7 @@ public class SynonymGroup {
         return groupName;
     }
 
-    public void addSynonyms(String newSynonyms) { //for now, will be parsed. separated by ;.
-        String[] synToAdd = newSynonyms.split(";");
-        for (String syn : synToAdd) {
-            addSynonym(syn);
-        }
-    }
+
 
     public void addSynonyms(List<String> newSynonyms) {
         for (String syn : newSynonyms) {
@@ -67,25 +52,23 @@ public class SynonymGroup {
         return synonymSet;
     }
 
-    public String addSynonym(String newSynonym) {
+    public boolean addSynonym(String newSynonym) {
         System.out.println("Trying to add synonym: " + newSynonym);
         if (!newSynonym.equals("")) {
-            if (SynonymGroups.getInstance().isSynonymContainedInGroup(newSynonym) == null) {
+
                 synonymSet.add(newSynonym);
-                return "true";
-            }
-            return "duplicateInOtherGroup";
+                return true;
         }
-        return "synonymIsEmpty";
+        return false;
     }
 
     public boolean editSynonym(String oldSynonym, String newSynonym) {
-        if (synonymSet.contains(oldSynonym) && !synonymSet.contains(newSynonym)) {
-            if (SynonymGroups.getInstance().isSynonymContainedInGroup(newSynonym) == null) {
+        if (synonymSet.contains(oldSynonym)) {
+
                 synonymSet.remove(oldSynonym);
                 addSynonym(newSynonym);
                 return true;
-            }
+
         }
         return false;
     }
