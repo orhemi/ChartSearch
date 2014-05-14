@@ -45,7 +45,6 @@ public class SynonymGroup {
         for (String syn : newSynonyms) {
             addSynonym(syn);
         }
-        System.out.println("synonyms added to syn group");
     }
 
     public HashSet getSynonyms() {
@@ -53,7 +52,6 @@ public class SynonymGroup {
     }
 
     public boolean addSynonym(String newSynonym) {
-        System.out.println("Trying to add synonym: " + newSynonym);
         if (!newSynonym.equals("")) {
 
                 synonymSet.add(newSynonym);
