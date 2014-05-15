@@ -51,7 +51,7 @@ public class ChartSearchSearcher {
 			searchText = searchText + ".*" + " || " + searchText;
 		}
 		
-		SolrQuery query = new SolrQuery(String.format("text:%s", searchText));
+		SolrQuery query = new SolrQuery(String.format("text:(%s)", searchText));
 		query.addFilterQuery(String.format("person_id:%d", patientId));
 		query.setRows(0); // Intentionally setting to this value such that we
 							// get the count very quickly.
@@ -68,7 +68,7 @@ public class ChartSearchSearcher {
 			searchText = searchText + ".*" + " || " + searchText;
 		}
 		
-		SolrQuery query = new SolrQuery(String.format("text:%s", searchText));
+		SolrQuery query = new SolrQuery(String.format("text:(%s)", searchText));
 		query.addFilterQuery(String.format("person_id:%d", patientId));
 		query.setStart(start);
 		query.setRows(length);
@@ -118,7 +118,7 @@ public class ChartSearchSearcher {
 		
 		// Encounters
 		System.out.println("Encounters:");
-		SolrQuery query3 = new SolrQuery(String.format("encounter_type:%s", searchText));
+		SolrQuery query3 = new SolrQuery(String.format("encounter_type:(%s)", searchText));
 		query3.addFilterQuery(String.format("patient_id:%d", patientId));
 		QueryResponse response3 = solrServer.query(query3);
 		Iterator<SolrDocument> iter3 = response3.getResults().iterator();
@@ -136,7 +136,7 @@ public class ChartSearchSearcher {
 		
 		// forms
 		System.out.println("Forms:");
-		SolrQuery query2 = new SolrQuery(String.format("form_name:%s", searchText));
+		SolrQuery query2 = new SolrQuery(String.format("form_name:(%s)", searchText));
 		QueryResponse response2 = solrServer.query(query2);
 		Iterator<SolrDocument> iter2 = response2.getResults().iterator();
 
